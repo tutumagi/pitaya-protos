@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package protos;
+
+message Vec3 {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}
+// ****************************** 迁移相关 **********************
+
+// CellEntitySourceInfo 迁移的实体源信息
+message CellEntitySourceInfo {
+  string userID = 1;
+  string entityID = 2;
+  string entityLabel = 3;
+
+  // 该实体所在的base Server id， 如果为""，表示不在任何base server
+  string fromServerID = 4;
+
+  map<string, string> extra = 5;
+}
+
+// ReqEnterSpace 请求进入新场景 baseapp -> cellappmgr
+message ReqEnterSpace {
+  CellEntitySourceInfo sourceInfo = 1;
+
+  string enterSpaceID = 2;
+  int32 enterSpaceKind = 3;
+  Vec3 enterPos = 4;
+}
+
+// EnterSpaceInfo 请求进入场景返回 cellappmgr -> baseapp
+message EnterSpaceInfo {
+  string SpaceServerID = 1;
+
+  CellEntitySourceInfo sourceInfo = 2;
+
+  string enterSpaceID = 3;
+  int32 enterSpaceKind = 4;
+  Vec3 enterPos = 5;
+}
+
+// RealEnterSpace 发给 对应的 space app 的消息  baseapp -> cellapp
+message RealEnterSpace {
+  CellEntitySourceInfo sourceInfo = 1;
+
+  bytes entityDatas = 2;
+
+  string enterSpaceID = 3;
+  int32 enterSpaceKind = 4;
+  Vec3 enterPos = 5;
+}
+
+// 空间创建完成后的通知
+message SpaceLoaded {
+  string ServerID = 1;
+  string SpaceID = 2;
+  int32 kind = 3;
+}
+
+
+message CreateSpaceReq {
+  string SpaceID = 1;
+  int32 kind = 2;
+
+  map<string, string> extra = 3;
+}
