@@ -4,10 +4,8 @@ package protos;
 option csharp_namespace = "NPitaya.Protos";
 
 message Session {
-  int64 id = 1;    // 运行时的session id
-  string uid = 2;  // 玩家id，角色id是另外一个，玩家可能有多个角色
-  bytes data = 3;
-
-  string entityID = 4;
-  string entityLabel = 5;
+  int64 id = 1;       // 运行时的session id
+  string uid = 2;     // 玩家id，角色id是另外一个，玩家可能有多个角色
+  string roleID = 3;  // 角色ID
+  bytes data = 4;
 }
