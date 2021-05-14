@@ -1,21 +1,22 @@
 syntax = "proto3";
 
 package protos;
+option go_package = "./protos";
 option csharp_namespace = "NPitaya.Protos";
 
 // Descriptor proto used to retrieve zipped proto descriptors remotely
 message ProtoDescriptor {
-    bytes desc = 1;
+  bytes desc = 1;
 }
 
 message ProtoName {
-    string name = 1;
+  string name = 1;
 }
 
 message ProtoDescriptors {
-    repeated bytes desc = 1;
+  repeated bytes desc = 1;
 }
 
 message ProtoNames {
-    repeated string name = 1;
+  repeated string name = 1;
 }

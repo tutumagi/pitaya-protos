@@ -1,8 +1,9 @@
 syntax = "proto3";
 
 package protos;
+option go_package = "./protos";
 option csharp_namespace = "NPitaya.Protos";
 
 message Doc {
-    string doc = 1;
+  string doc = 1;
 }

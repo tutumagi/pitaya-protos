@@ -1,2 +1,2 @@
 *.pb.go
-genproto.sh
+# genproto.sh
