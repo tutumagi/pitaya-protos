@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "./protos";
+
+import "entity.proto";
+
+/************************** 业务相关 ***************************/
+
+// 动物的锚点信息
+message AnchorID {
+  string id = 1;
+  int32 cityID = 2;
+}
+
+message RPCReq {
+  string uid = 1;                   // 玩家uid
+  string entityID = 2;              // 玩家的角色ID
+  string spaceID = 3;               // 玩家在的space
+  map<string, string> extends = 4;  // 附加字段
+}
+
+message CostReq {
+  string uid = 1;
+  string entityID = 2;
+  map<int32, int32> items = 3;
+  int32 index = 4;
+}
+
+message CostRsp {}
+
+//消耗装备耐久
+message EquipCostReq {
+  int32 weaponType = 1;
+  int32 weaponQua = 2;
+  int32 wearVal = 3;
+}
+
+message EquipCostRsp {}
+
+//消耗角色体力
+message PowerCostReq {
+  string uid = 1;  //玩家id
+  int32 num = 2;   //体力数量
+}
+message PowerCostRsp {}
+
+//请求采集资源
+message CollectionReq {
+  string id = 1;
+  int32 csvID = 2;
+  string playerID = 3;  //玩家id
+}
+
+//返回采集到的资源
+message CollectionRsp {
+  bool lastCollection = 1;
+  Vec3 pos = 2;
+}
+
+//返回新的宝藏点
+message RspTreasureAnchor {
+  map<string, int32> anchor = 1;
+  int32 flag = 2;  // 1 = 加载的数据,2=刷新的数据
+}
+
+message RpcFeedReq {
+  string id = 1;
+  string roleID = 2;
+  int32 csvID = 3;
+}
+
+message RpcFeedRsp {
+  int32 sweet = 1;
+}
+
+message RpcCatchReq {
+  string id = 1;
+  string roleID = 2;
+  int32 csvID = 3;
+}
+
+message RpcPeelSkinReq {
+  string id = 1;
+  string roleID = 2;
+  int32 csvID = 3;
+}
+
+//请求获取某buff数据
+message RpcRoleBuffReq {
+  string entityID = 1;
+  int32 buffID = 2;
+}
+
+message RpcRoleBuffRsp {
+  double buffVal = 1;  // buff效果
+}
+
+message RpcListInt32 {
+  string entityID = 1;
+  repeated int32 ids = 2;
+}
+
+message RpcMapInt2Int {
+  map<int32, int32> items = 1;
+}
+
+message RpcStoreBuyGoodsReq {
+  int32 goodsID = 1;
+  int32 num = 2;
+}
+
+message RpcStoreBuyGoodsRsp {
+  int32 goodsID = 1;
+  int32 num = 2;
+  int64 endTime = 3;
+}
+
+message CostAndGainReq {
+  CostReq cost = 1;
+  CostReq gain = 2;
+}

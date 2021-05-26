@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "./protos";
+
+import "entity.proto";
+
+enum EntityType {
+  ET_UNSPECIFIED = 0;
+  ET_ROLE = 1;       // 角色
+  ET_RES = 2;        // 树木矿石等资源
+  ET_ANIMAL = 3;     // 动物
+  ET_BUILD = 5;      // 建筑
+  ET_FURNITURE = 6;  // 家具
+  ET_LAND = 7;       // 土地
+  ET_TREASURE = 9;   // 宝箱
+  ET_PET = 10;       // 宠物
+}
+
+enum EntityLeaveReason {
+  ELR_UNSPECIFIED = 0;
+  ELR_RES_COLLECTED = 1;  // 资源被开采完了
+  ELR_LAND_DESTROY = 2;   // 土地被占用了，修建了，然后需要销毁上面的资源和动物
+  ELR_LEAVESPACE = 3;     // 实体离开场景
+}
+
+// 实体信息
+message EntityData {
+  string id = 1;
+  EntityType typ = 2;
+
+  bytes data = 3;
+}
+
+// 实体更新信息
+message EntityUpdateData {
+  string id = 1;
+  EntityType typ = 2;
+
+  bytes data = 3;
+}
+
+message EntityEnterSight {
+  string id = 1;
+  EntityType typ = 2;
+  bytes data = 3;
+  Vec3 pos = 4;
+  float angle = 5;
+}
+
+message EntityLeaveSight {
+  string id = 1;
+  EntityType typ = 2;
+  EntityLeaveReason reason = 3;
+}
+
+// 实体更新信息
+message BEntityUpdate {
+  repeated EntityUpdateData updates = 1;
+}
+
+message MoveTo {
+  string id = 1;
+  EntityType typ = 2;
+
+  Vec3 cur = 3;
+  Vec3 des = 4;
+  int64 timestamp = 5;  // 移动到目的地的时间，单位毫秒
+}

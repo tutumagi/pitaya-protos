@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "./protos";
+
+import "google/protobuf/any.proto";
+import "entity.proto";
+
+message RPCCityTown {
+  int32 cityID = 1;
+  int32 townID = 2;
+}
+
+message RPCCreateInTown {
+  int32 cityID = 1;
+  int32 townID = 2;
+}
+
+message RPCCreateInTownRsp {
+  Vec2 pos = 1;      // 返回玩家得出生点
+  int32 number = 2;  // 当前玩家是该城镇得第几个玩家
+}
+
+message RPCEntityTransferInfo {
+  // 玩家信息
+  string uid = 1;           // 玩家uid
+  string roleID = 2;        // 角色id
+  string baseServerID = 3;  // 角色所在的base server id
+  string name = 4;          // 角色名字
+  string head = 5;          // 角色头像
+  int32 cityID = 6;         // 角色所在的城市id
+  string spaceID = 7;       // 角色在哪个场景 ID
+  int32 spaceKind = 8;      // 角色在哪种场景
+
+  int32 townID = 9;  // 角色所在的镇 id
+}
+
+// call 某个实体的方法，
+message RPCEntityReq {
+  // 玩家透传信息
+  RPCEntityTransferInfo roleTransfer = 1;
+
+  // 哪个实体
+  string entityID = 2;
+  string entityLabel = 3;
+
+  // 需要传递的参数
+  map<string, int32> extend1 = 4;
+  map<string, string> extend2 = 5;
+
+  google.protobuf.Any extend3 = 6;
+}
+
+/*
+ * 场景转发消息，目前都是转发给cellmgrapp的，只有 cellmgrapp 肯定知道场景在哪里
+ */
+// call 某个场景的方法
+message RPCSpaceReq {
+  RPCEntityReq baseinfo = 1;
+
+  // 转发给哪个场景的哪个路由
+  string toSpaceID = 2;
+  int32 toSpaceKind = 3;
+  string router = 4;
+}
+
+// 实体的操作枚举
+enum EOp {
+  EOP_UNSPECIFIED = 0;
+  EOP_CREATE = 1;
+  EOP_UPDATE = 2;
+  EOP_DESTROY = 3;
+  EOP_LEVEL_UP = 4;
+}
+
+message Consume {
+  int32 seconds = 1;            // 需要耗时多少秒
+  map<int32, int32> items = 2;  // 需要哪几类资源
+  EOp op = 3;                   // 哪种操作的消耗计算
+  int32 workers = 4;            // 需要工人数
+  int32 recruitId = 5;          // 需要哪种雇佣
+  int32 skillLevel = 6;         // 工人技能等级
+}
+
+message RpcChangeGroundReq {
+  string roleID = 1;     //角色id
+  int32 landID = 2;      //土地id
+  int32 decorateID = 3;  //基建id
+  int32 cityID = 4;      //城市id
+}
