@@ -11,10 +11,21 @@ enum MsgType {
   MsgPush = 3;
 }
 
-message Msg {
+// message Msg {
+//   uint64 id = 1;  // 消息ID，如果是 MsgRequest 或者 MsgResponse 会用到此id
+//   string route = 2;
+//   bytes data = 3;
+//   string reply = 4;
+//   MsgType type = 5;
+// }
+
+message MsgV2 {
   uint64 id = 1;  // 消息ID，如果是 MsgRequest 或者 MsgResponse 会用到此id
   string route = 2;
   bytes data = 3;
   string reply = 4;
   MsgType type = 5;
+
+  string eid = 6;  // 实体id
+  string typ = 7;  // 实体类别
 }
