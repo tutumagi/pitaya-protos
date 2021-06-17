@@ -5,8 +5,15 @@ option go_package = "./protos";
 option csharp_namespace = "NPitaya.Protos";
 
 message Session {
-  int64 id = 1;       // 运行时的session id
-  string uid = 2;     // 玩家id，角色id是另外一个，玩家可能有多个角色
-  string roleID = 3;  // 角色ID
-  bytes data = 4;
+  int64 id = 1;         // 运行时的session id
+  string uid = 2;       // 玩家id，角色id是另外一个，玩家可能有多个角色
+  string roleID = 3;    // 角色ID
+  string serverID = 4;  // 该连接在哪个server上
 }
+
+message ClientConnect {
+  Session sess = 1;
+  string bootEntityID = 2;
+}
+
+message ClientDisconnect {}
