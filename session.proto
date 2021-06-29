@@ -6,8 +6,7 @@ option csharp_namespace = "NPitaya.Protos";
 
 message Session {
   int64 id = 1;         // 运行时的session id
-  string uid = 2;       // 玩家id，角色id是另外一个，玩家可能有多个角色
-  string roleID = 3;    // 角色ID
+  string uid = 2;       // 玩家角色id
   string serverID = 4;  // 该连接在哪个server上
 }
 
@@ -16,4 +15,8 @@ message ClientConnect {
   string bootEntityID = 2;
 }
 
-message ClientDisconnect {}
+// 客户端断开连接
+message ClientDisconnect {
+  Session sess = 1;
+  string ownEntityID = 2;
+}

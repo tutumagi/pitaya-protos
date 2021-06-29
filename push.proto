@@ -6,6 +6,7 @@ option csharp_namespace = "NPitaya.Protos";
 
 message Push {
   string route = 1;
-  string uid = 2;
+  string uid = 2;  // 连接绑定的uid
   bytes data = 3;
+  int64 clientID = 4;  // 连接在所在网关层的唯一ID
 }
