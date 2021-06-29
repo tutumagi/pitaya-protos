@@ -20,3 +20,9 @@ message ClientDisconnect {
   Session sess = 1;
   string ownEntityID = 2;
 }
+
+message SwitchOwner {
+  Session sess = 1;
+  string id = 2;
+  string type = 3;
+}
