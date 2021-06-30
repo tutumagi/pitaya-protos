@@ -17,8 +17,8 @@ message ClientConnect {
 
 // 客户端断开连接
 message ClientDisconnect {
-  Session sess = 1;
-  string ownEntityID = 2;
+  string ownEntityID = 1;
+  string ownEntityType = 2;
 }
 
 message SwitchOwner {
