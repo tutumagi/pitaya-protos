@@ -25,4 +25,5 @@ message SwitchOwner {
   Session sess = 1;
   string id = 2;
   string type = 3;
+  string backgroundServerID = 4;
 }
